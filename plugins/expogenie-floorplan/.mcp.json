@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "expogenie": {
+      "type": "http",
+      "url": "https://api.expogenie.io/mcp"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "expogenie",
+  "owner": { "name": "ExpoGenie" },
+  "plugins": [
+    {
+      "name": "expogenie-floorplan",
+      "source": "./plugins/expogenie-floorplan",
+      "description": "Interview an organizer, then build an ExpoGenie floor plan (background, booths, prices, legend, tags) through the ExpoGenie MCP."
+    }
+  ]
+}
