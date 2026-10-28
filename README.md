@@ -51,7 +51,7 @@ An owner adds the plugin once for everyone:
    - **Advanced settings**: your Client ID and Client Secret.
 3. Click **Connect**, then **Approve**.
 
-Then start a chat: *"Create the floor plan for <your event>. The venue drawing is at <link>."*
+Then start a chat: *"Build the floor plan for <your event>. The venue drawing is at <link>."* Every ExpoGenie event has one floor plan; Claude builds into it and never creates a second one.
 
 ## License
 

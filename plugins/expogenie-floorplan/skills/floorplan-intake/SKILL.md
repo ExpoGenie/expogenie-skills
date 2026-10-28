@@ -21,7 +21,7 @@ Your job is to collect everything needed to build one ExpoGenie floor plan, and 
 | # | Question | Recommended default |
 |---|----------|---------------------|
 | 1.1 | Which event is this floor plan for? **(required)** (Look it up with the MCP `search_events` tool and confirm the name.) | — |
-| 1.2 | Floor plan name? | `<Venue> – <Hall>`, e.g. "Exhibit Hall A – Main Ballroom" |
+| 1.2 | The event already has its floor plan (`list_floorplans`; one per event). Tell the user its name and booth count. Keep that name or rename it? If it already has booths: keep them and add, or replace the unsold ones? | Keep the name; keep existing booths and add |
 | 1.3 | Do you have a venue drawing (PDF, PNG, JPG, or DWG exported to PDF)? **(required: yes or no)** | No drawing → draw booths on a blank grid |
 | 1.4 | One known real-world measurement on the drawing, e.g. "the back wall is 240 ft". **(required if there is a drawing)** | — |
 | 1.5 | Feet or meters? | Feet |
@@ -100,7 +100,9 @@ Scale: **10 px = 1 ft** (a 10×10 booth = 100×100 px, matching the portal's bui
 ```json
 {
   "eventId": "uuid",
-  "floorplanName": "string",
+  "floorplanId": "uuid of the event's existing floor plan",
+  "floorplanName": "string (current name unless the user renames it)",
+  "existingBooths": "keep-and-add | replace-unsold",
   "units": "ft",
   "pxPerUnit": 10,
   "background": { "file": "path-or-null", "knownMeasurement": { "label": "back wall", "length": 240 } },

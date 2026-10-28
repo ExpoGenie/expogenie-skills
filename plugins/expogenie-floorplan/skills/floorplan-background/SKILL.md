@@ -37,7 +37,7 @@ Call `set_floorplan_background` with:
 - `rotate`: 90/180/270 only if the user wants the hall turned (e.g. entrance at the bottom).
 - `scaleExistingBooths`: `true` only when you re-process the drawing the current booths were placed on (e.g. fixing the scale of an existing plan, with `imageUrl` = the current background). `false` for a new drawing.
 
-If the floor plan doesn't exist yet, call `create_floorplan` first. A `floorplan_locked` error means the plan is open in the editor: ask the user to close the editor, then retry.
+Set it on the event's existing floor plan (from `list_floorplans`). Every event has one plan; call `create_floorplan` only when `list_floorplans` returns none. A `floorplan_locked` error means the plan is open in the editor: ask the user to close the editor, then retry.
 
 ## 4. Check the scale
 

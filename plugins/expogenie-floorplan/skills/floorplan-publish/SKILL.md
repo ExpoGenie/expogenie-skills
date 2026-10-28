@@ -11,9 +11,11 @@ This skill orders the other three skills and owns the final check. Follow the st
 
 - **Connection:** the ExpoGenie MCP must be connected. Call `list_events`. If it fails, tell the user to connect the ExpoGenie connector, and stop.
 - **Event:** find the event with `search_events` and confirm its name and dates with the user.
-- **Existing plan:** call `list_floorplans` for the event.
-  - If a plan exists, ask: add to it, replace it, or create a second floor plan (e.g. a second hall)?
-  - **Replacing** means deleting booths, so get an explicit yes first. Sold booths are never deleted.
+- **The event's floor plan:** an ExpoGenie event has **exactly one** floor plan, and the portal usually created it already (the card on the Floor Plan page). Call `list_floorplans` for the event and keep its `floorplanId`. Every later step builds into that plan.
+  - **Never create a second floor plan.** Call `create_floorplan` only when `list_floorplans` returns nothing. If it answers `floorplan_exists`, use the plan it names.
+  - **Plan is empty (0 booths):** build into it. Rename it with `update_floorplan` only if the user wants a different name.
+  - **Plan already has booths:** show the count (sold vs unsold), then ask: *keep them and add the new booths* (default), or *replace the unsold booths* (needs `delete_booths` and an explicit yes; sold booths are always kept)?
+  - A second hall goes on the **same** plan, placed beside the first one on a larger canvas, not on a new plan.
 - **Permissions:** the API client needs Floorplans Read/Write/Update, Booths Write/Update (Delete only for replacing), and Tags. A `forbidden` error names the missing permission. Tell the user to tick it under **Settings → ExpoGenie REST API**.
 
 ## 1. Interview
@@ -22,7 +24,7 @@ Run **floorplan-intake**: show recommended defaults, use the fast path when the 
 
 ## 2. Background
 
-Run **floorplan-background** if there is a drawing. Otherwise call `create_floorplan` with a canvas that fits the hall: (hall feet + 20) × 10 px on each side.
+Run **floorplan-background** on the event's floor plan if there is a drawing. Otherwise size its canvas to the hall with `update_floorplan`: (hall feet + 20) × 10 px on each side. (Only if the event has no floor plan at all, call `create_floorplan` with that canvas instead.)
 
 ## 3. Layout
 
@@ -54,7 +56,8 @@ Never say the floor plan is ready while a check above fails. Say what is left in
 
 ## Safety rules
 
-- Ask before deleting a floor plan or any booths, and name what will be deleted.
+- One floor plan per event: build into the existing one. Never create a second plan, and never delete the event's plan to start over; remove unsold booths instead.
+- Ask before deleting any booths, and name what will be deleted.
 - Never change a sold booth's owner. Sales go through invoices.
 - Prices create real shop products. Confirm prices before creating booths for an event that is already selling.
 - When working on a live event (not a test event), say so once before the first write.

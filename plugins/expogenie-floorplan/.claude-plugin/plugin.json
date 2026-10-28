@@ -2,7 +2,7 @@
   "name": "expogenie-floorplan",
   "displayName": "ExpoGenie Floor Plan Builder",
   "description": "Interview an organizer, then build an ExpoGenie floor plan (background, booths, prices, legend, tags) through the ExpoGenie MCP.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": { "name": "ExpoGenie" },
   "license": "MIT"
 }
